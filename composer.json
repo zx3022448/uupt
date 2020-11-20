@@ -1,0 +1,32 @@
+{
+    "name": "zengxin/uupt",
+    "description": "uupt",
+    "keywords": [
+        "uupt",
+        "uu"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zeng",
+            "email": "573908667@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Uupt\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Uupt\\Tests\\": "tests/"
+        }
+    }
+}
