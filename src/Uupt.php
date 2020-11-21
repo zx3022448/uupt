@@ -27,7 +27,7 @@ class Uupt extends Core
         $data['nonce_str'] = Tools::guid();
         $data['sign']      = Tools::sign($data, $this->getAppKey());
 
-        return Tools::curl($url, $data, true);
+        return Tools::curl($url, 'POST', $data);
     }
 
     /**
