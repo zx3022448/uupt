@@ -19,18 +19,18 @@ $from_lnglat = Tools::bd_encrypt($from_lnglat['lng'],$from_lnglat['lat']);
 $uu  = new Uupt([]);
 $res = $uu->getOrderPirce([
     'origin_id'     => 'SP202011201755090089879',
-    'from_address'  => '长沙市',
+    'from_address'  => '湖南省长沙市雨花区2076至高点1309',
     'from_lat'      => $from_lnglat['lng'],
     'from_lng'      => $from_lnglat['lat'],
-    'to_address'    => '长沙市',
-    'to_usernote'   => '1421',
+    'to_address'    => '湖南省长沙市雨花区汇富中心A栋1421',
+//    'to_usernote'   => '1421',
     'to_lat'        => $to_lnglat['lng'],
     'to_lng'        => $to_lnglat['lat'],
     'city_name'     => '长沙市',
     'goods_type'    => '其他',
     'send_type'     => '0',
-
-
 ]);
+
+//$res = $uu->getCityList();
 
 var_dump($res);
