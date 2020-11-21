@@ -34,7 +34,7 @@ class Core
             }
 
             $this->config = $config;
-            $this->url    = 'https://openapi.uupt.com/v2_0';
+            $this->url    = 'https://openapi.uupt.com/v2_0/';
         }
     }
 

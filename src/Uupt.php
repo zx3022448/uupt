@@ -72,7 +72,7 @@ class Uupt extends Core
             throw new \Exception('缺少参数: to_lng');
         }
 
-        return $this->curl($data, '/getorderprice.ashx');
+        return $this->curl($data, 'getorderprice.ashx');
     }
 
     /**
