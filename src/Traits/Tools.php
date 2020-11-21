@@ -14,48 +14,39 @@ class Tools
      * Author:  曾鑫
      * curl请求
      * @param string $url
-     * @param string $method
-     * @param array  $data
-     * @param string $type
-     * @param bool   $format
+     * @param array  $post_data
+     * @param bool   $json
      * @return bool|mixed|string
      */
-    public static function curl($url = '', $method = 'GET', $data = [], $type = 'form', $format = true)
+    public static function curl($url = '', $post_data = [], $json = false)
     {
-        if ($type == 'json') {
-            $header = 'content-type: application/json; charset=utf-8';
-        } else {
-            $header = 'content-type: multipart/form-data; charset=utf-8';
+        if (empty($url) || empty($post_data)) {
+            return false;
         }
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
-                "cache-control: no-cache",
-                $header
-            ),
-        ));
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
-        if ($format == false) {
-            return $response;
-        }
-        if ($err) {
-            $info = $err;
-        } else {
-            $info = json_decode($response, true);
-        }
-        return $info;
-    }
 
+        $arr = [];
+        foreach ($post_data as $key => $value) {
+            $arr[] = $key.'='.$value;
+        }
+
+        $curlPost = implode('&', $arr);
+
+        $postUrl = $url;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$postUrl);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost);
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        if($json){
+            return json_decode($data);
+        }
+
+        return $data;
+    }
     /**
      * Author:  曾鑫
      * 生成guid
