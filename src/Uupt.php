@@ -13,9 +13,9 @@ use Uupt\Traits\Tools;
 
 class Uupt extends Core
 {
-    public function __construct(array $config = [])
+    public function __construct(array $config = [], $is_test = false)
     {
-        parent::__construct($config);
+        parent::__construct($config, $is_test);
     }
 
     private function curl($data, $url)
