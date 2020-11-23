@@ -170,4 +170,15 @@ class Uupt extends Core
     {
         return $this->curl([], 'getcitylist.ashx');
     }
+
+    /**
+     * Author:  曾鑫
+     *
+     * @param $data
+     * @return bool
+     */
+    public function checkCallBackParams($data)
+    {
+        return Tools::checkCallbackParam($data,$this->getAppKey());
+    }
 }

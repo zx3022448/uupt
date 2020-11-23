@@ -22,36 +22,36 @@ class Tools
      */
     public static function curl($url = '', $method = 'GET', $data = [], $type = 'form', $format = true)
     {
-        if ($type == 'json') {
+        if($type == 'json'){
             $header = 'content-type: application/json; charset=utf-8';
-        } else {
+        }else{
             $header = 'content-type: multipart/form-data; charset=utf-8';
         }
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
+            CURLOPT_URL            => $url,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_ENCODING       => "",
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
             CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
+            CURLOPT_CUSTOMREQUEST  => $method,
+            CURLOPT_POSTFIELDS     => $data,
+            CURLOPT_HTTPHEADER     => array(
                 "cache-control: no-cache",
                 $header
             ),
         ));
         $response = curl_exec($curl);
-        $err = curl_error($curl);
+        $err      = curl_error($curl);
         curl_close($curl);
-        if ($format == false) {
+        if($format == false){
             return $response;
         }
-        if ($err) {
+        if($err){
             $info = $err;
-        } else {
+        }else{
             $info = json_decode($response, true);
         }
         return $info;
@@ -97,6 +97,23 @@ class Tools
         $arr[] = 'key='.$appKey;
         $str   = strtoupper(implode('&', $arr));
         return strtoupper(md5($str));
+    }
+
+    /**
+     * Author:  曾鑫
+     * 校验回调数据
+     * @param $data
+     * @param $appKey
+     * @return bool
+     */
+    public static function checkCallbackParam($data, $appKey)
+    {
+        $sign = $data['sign'];
+        unset($data['sign']);
+        unset($data['return_msg']);
+
+        $check_sign = self::sign($data, $appKey);
+        return $check_sign === $sign;
     }
 
     /**
