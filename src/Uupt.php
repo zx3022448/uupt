@@ -173,7 +173,7 @@ class Uupt extends Core
 
     /**
      * Author:  曾鑫
-     *
+     * 检测回调数据
      * @param $data
      * @return bool
      */
